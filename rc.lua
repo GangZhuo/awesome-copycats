@@ -180,6 +180,27 @@ beautiful.init(string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv
 
 -- }}}
 
+local bling = require("bling")
+local term_scratch = bling.module.scratchpad {
+    command = terminal.." --class spad", -- How to spawn the scratchpad
+    rule = { instance = "spad" },        -- The rule that the scratchpad will be searched by
+    sticky = true,                       -- Whether the scratchpad should be sticky
+    autoclose = true,                    -- Whether it should hide itself when losing focus
+    floating = true,                     -- Whether it should be floating (MUST BE TRUE FOR ANIMATIONS)
+    geometry = {                         -- The geometry in a floating state
+        x = 280 * 2,
+        y = 24,
+        height = 720,
+        width  = 800
+    },
+    reapply = false,                     -- Whether all those properties should be reapplied on every new
+                                         -- opening of the scratchpad (MUST BE TRUE FOR ANIMATIONS)
+    dont_focus_before_close  = false,    -- When set to true, the scratchpad will be closed by the toggle
+                                         -- function regardless of whether its focused or not. When set to
+                                         -- false, the toggle function will first bring the scratchpad into
+                                         -- focus and only close it on a second call
+}
+
 -- {{{ Menu
 
 -- Create a launcher widget and a main menu
@@ -564,7 +585,12 @@ globalkeys = mytable.join(
                     history_path = awful.util.get_cache_dir() .. "/history_eval"
                   }
               end,
-              {description = "lua execute prompt", group = "awesome"})
+              {description = "lua execute prompt", group = "awesome"}),
+    awful.key({ modkey }, "-" ,
+        function()
+            term_scratch:toggle()
+        end,
+        {description = "toggles the scratchpads", group = "awesome"})
     --]]
 )
 
