@@ -185,7 +185,7 @@ local term_scratch = bling.module.scratchpad {
     command = terminal.." --class spad", -- How to spawn the scratchpad
     rule = { instance = "spad" },        -- The rule that the scratchpad will be searched by
     sticky = true,                       -- Whether the scratchpad should be sticky
-    autoclose = true,                    -- Whether it should hide itself when losing focus
+    autoclose = false,                    -- Whether it should hide itself when losing focus
     floating = true,                     -- Whether it should be floating (MUST BE TRUE FOR ANIMATIONS)
     geometry = {                         -- The geometry in a floating state
         x = 280 * 2,
